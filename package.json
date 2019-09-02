@@ -1,7 +1,7 @@
 {
-  "name": "@slithy/npm-starter",
-  "version": "0.1.2",
-  "description": "Template repository for creating a React component NPM module.",
+  "name": "@slithy/modal",
+  "version": "0.1.0",
+  "description": "A React modal.",
   "main": "dist/index.js",
   "files": [
     "/dist"
