@@ -65,7 +65,7 @@ const Modal = ({ children, className, ...props }) => {
     if (props.afterOpen) {
       props.afterOpen()
     }
-  }, [props])
+  }, [props.afterOpen])
 
   if (!children) {
     return null
