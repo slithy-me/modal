@@ -24,7 +24,7 @@ const OreoModalExample = (props) => (
 
 const SimpleModal = (props) => (
   <Modal
-    title={props.parentId ? props.parentId : null}
+    title={props.parentId ? `Child of ${props.parentId}` : null}
     {...props}
   >
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut sem et dolor maximus cursus. Praesent erat lectus, dignissim eu dapibus id, porttitor in purus. Etiam facilisis, sapien nec suscipit pretium, dui sem mollis mauris, nec dapibus augue erat nec odio. Quisque ex nisl, feugiat sit amet elit eget, fermentum aliquet elit. Cras porta gravida facilisis. Vestibulum eu magna fermentum, facilisis risus lacinia, pretium massa. Nunc rutrum gravida turpis, dignissim iaculis ligula bibendum ut. Curabitur ullamcorper ipsum magna, eu tempus nisl tincidunt sit amet. Etiam ut blandit felis, at blandit ex. Aenean ut ultricies quam, ut placerat mauris.</p>
@@ -78,7 +78,7 @@ const EverythingModal = (props) => {
       {...props}
     >
       <div>
-        <p>This modal logs events to the browser console. Open your dev tools to observe.</p>
+        <p>For better or worse, this modal incorporates every available prop and method, and logs events to the browser console as they happen. Hot, modal action in real-time! Open the console to witness that party; it's the knees!</p>
         <button onClick={handleOpenNewModal} type="button">Open New Modal</button>
       </div>
     </Modal>
