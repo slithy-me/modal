@@ -43,7 +43,7 @@ import { Modal, ModalContext } from '@slithy/modal'
 const SimpleModal = (props) => {
   return (
     <Modal {...props}>
-      <p>Hello, World. I'm in a modal!</p>
+      <p>Hello, World. I am in a modal!</p>
     </Modal>
   )
 }
@@ -230,7 +230,7 @@ This is as bare-bones as it gets.
 ```javascript
 const SimpleModal = (props) => (
   <Modal {...props}>
-    <p>Hello, World. I'm in a modal!</p>
+    <p>Hello, World. I am in a modal!</p>
   </Modal>
 )
 ```
