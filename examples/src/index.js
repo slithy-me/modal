@@ -62,6 +62,8 @@ const EverythingModal = (props) => {
       }}
       cardStyle={{
         fontSize: '0.625rem',
+        marginRight: 0,
+        verticalAlign: 'top',
         width: 640,
       }}
       afterClose={afterClose}

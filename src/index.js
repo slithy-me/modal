@@ -90,8 +90,7 @@ const Modal = ({ children, className, ...props }) => {
       }
       ref={thisModal}
     >
-      <div className="modal-background" style={props.backgroundStyle} />
-      <div className="modal-inner">
+      <div className="modal-background" style={props.backgroundStyle}>
         <div
           className={
             ['modal-exit', props.closeOnOutsideClick ? 'closeOnOutsideClick' : undefined].filter(el => el != null).join(' ')

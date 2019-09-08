@@ -10,32 +10,20 @@
   touch-action: manipulation;
   width: 100%;
 
-  &.show {
-    opacity: 1;
-  }
-
   .modal-background {
     background-color: rgba(0,0,0,0.5);
-  }
-  
-  .modal-background,
-  .modal-inner {
     box-sizing: border-box;
     bottom: 0;
+    font-size: 0;
     left: 0;
+    overflow: auto;
     position: absolute;
     right: 0;
+    text-align: center;
     top: 0;
   }
   
-  .modal-inner {
-    box-sizing: border-box;
-    font-size: 0;
-    overflow: auto;
-    text-align: center;
-  }
-  
-  .modal-inner::before {
+  .modal-background::before {
     content: "";
     display: inline-block;
     height: 100%;
