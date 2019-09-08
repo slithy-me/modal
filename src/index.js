@@ -84,7 +84,7 @@ const Modal = ({ children, className, ...props }) => {
       }
       ref={thisModal}
     >
-      <div className="modal-background" />
+      <div className="modal-background" style={props.backgroundStyle} />
       <div className="modal-inner">
         <div
           className={
@@ -92,7 +92,7 @@ const Modal = ({ children, className, ...props }) => {
           }
           onClick={props.closeOnOutsideClick ? handleClose : undefined}
         />
-        <div className="modal-card">
+        <div className="modal-card" style={props.cardStyle}>
           {props.title && (
             <div className="modal-header">
               {props.title}
