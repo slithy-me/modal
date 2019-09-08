@@ -151,7 +151,7 @@ const Modal = ({ children, className, ...props }) => {
 
 const ModalContext = createContext()
 
-const ModalProvider = ({ children, solo = false, transitions = {
+const ModalProvider = ({ children, solo = false, modalTransitions = {
   from: { opacity: 0 },
   enter: { opacity: 1 },
   leave: { opacity: 0 },
@@ -174,9 +174,9 @@ const ModalProvider = ({ children, solo = false, transitions = {
     setModals([...modals, [id || createRandomId(), nextModal]])
   }
   const transitions = useTransition(modals, modal => modal[0], {
-    from:  transitions.from,
-    enter: transitions.enter,
-    leave: { ...transitions.leave, cursor: 'default', pointerEvents: 'none' },
+    from:  modalTransitions.from,
+    enter: modalTransitions.enter,
+    leave: { ...modalTransitions.leave, cursor: 'default', pointerEvents: 'none' },
   })
 
   return (
