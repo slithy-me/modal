@@ -94,6 +94,11 @@
         margin-bottom: 12px;
       }
     }
+
+    .modal-button--close {
+      color: #333;
+      padding: 22px 16px;
+    }
   }
 
   .modal-button--close {
@@ -101,14 +106,14 @@
     border: none;
     box-shadow: none;
     box-sizing: border-box;
-    color: #333;
+    color: #fff;
     cursor: pointer;
     font-size: 0;
     font-size: 14px;
     line-height: 1;
     outline: none;
     margin: 0;
-    padding: 22px 16px;
+    padding: 16px;
     position: absolute; top: 0; right: 0;
   }
 

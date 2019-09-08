@@ -3,6 +3,12 @@ import Portal from '@slithy/portal'
 import { useTransition, animated } from 'react-spring'
 import './style.scss'
 
+const CloseButton = ({ onClick }) => (
+  <button className="modal-button--close" onClick={onClick} type="button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" fill="currentColor" /></svg>
+  </button>
+)
+
 const Modal = ({ children, className, ...props }) => {
   const { closeModal } = useContext(ModalContext)
   const thisModal = useRef()
@@ -136,10 +142,9 @@ const Modal = ({ children, className, ...props }) => {
             </div>
           )}
 
-          <button className="modal-button--close" onClick={handleClose} type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" fill="currentColor" /></svg>
-          </button>
+          {!props.closeButtonOutside && <CloseButton onClick={handleClose} />}
         </div>
+        {props.closeButtonOutside && <CloseButton onClick={handleClose} />}
       </div>
     </div>
   )
@@ -159,11 +164,11 @@ const ModalProvider = ({ children, solo = false }) => {
   }
   const closeAllModals = () => setEnqueuedToClose(modals.map(modal => modal[0]))
   const createRandomId = () => '_' + Math.random().toString(36).substr(2, 9)
-  const openModal = nextModal => {
+  const openModal = (nextModal, id) => {
     if (solo) {
       closeAllModals()
     }
-    setModals([...modals, [createRandomId(), nextModal]])
+    setModals([...modals, [id || createRandomId(), nextModal]])
   }
   const transitions = useTransition(modals, modal => modal[0], {
     from:  { opacity: 0 },
