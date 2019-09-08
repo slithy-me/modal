@@ -284,9 +284,10 @@ const EverythingModal = (props) => {
       onSubmit={onSubmit}
       onSubmitLabel="OK"
       title="The Everything Modal!"
+      {...props}
     >
       <div>
-        <p>... Content ...</p>
+        <p>This modal logs events to the browser console. Open your dev tools to observe.</p>
         <button onClick={handleOpenNewModal} type="button">Open New Modal</button>
       </div>
     </Modal>
