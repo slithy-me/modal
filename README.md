@@ -31,13 +31,13 @@ const App = () => (
 
 ## Basic Usage
 
-1. Import the `Modal` and `ModalContext` components.
+Import the `Modal` and `ModalContext` components.
 
 ```javascript
 import { Modal, ModalContext } from '@slithy/modal'
 ```
 
-2. Create a component containing your modal definition. Be sure to spread props into the `Modal` component, as below. 
+Create a component containing your modal definition. Be sure to spread props into the `Modal` component, as below. 
 
 ```javascript
 const SimpleModal = (props) => {
@@ -49,7 +49,7 @@ const SimpleModal = (props) => {
 }
 ```
 
-3. In your view, use `ModalContext`, then create an event handler to use `openModal`.
+In your view, use `ModalContext`, then create an event handler to use `openModal`.
 
 ```javascript
 import React, { useContext } from 'react'
