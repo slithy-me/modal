@@ -1,6 +1,6 @@
 {
   "name": "@slithy/modal",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Context-based modals in React, using React Hooks.",
   "main": "dist/index.js",
   "files": [

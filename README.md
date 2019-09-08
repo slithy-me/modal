@@ -86,6 +86,20 @@ An optional prop. If true, allows only one modal to be open. If a new modal is o
 <ModalProvider solo> ... </ModalProvider>
 ```
 
+### transitions
+_object_  
+An optional prop, allows you to redefine the react-spring transitions, using _from_, _enter_ and _leave_.
+
+Default:
+```javascript
+<ModalProvider transitions={{
+  from: { opacity: 0 },
+  enter: { opacity: 1 },
+  leave: { opacity: 0 },
+}}>
+  ...
+```
+
 ***
 
 ## API : ModalContext

@@ -151,7 +151,11 @@ const Modal = ({ children, className, ...props }) => {
 
 const ModalContext = createContext()
 
-const ModalProvider = ({ children, solo = false }) => {
+const ModalProvider = ({ children, solo = false, transitions = {
+  from: { opacity: 0 },
+  enter: { opacity: 1 },
+  leave: { opacity: 0 },
+} }) => {
   const [modals, setModals] = useState([])
   const [enqueuedToClose, setEnqueuedToClose] = useState([])
   const closeModal = (id) => {
@@ -170,9 +174,9 @@ const ModalProvider = ({ children, solo = false }) => {
     setModals([...modals, [id || createRandomId(), nextModal]])
   }
   const transitions = useTransition(modals, modal => modal[0], {
-    from:  { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0, cursor: 'default', pointerEvents: 'none' },
+    from:  transitions.from,
+    enter: transitions.enter,
+    leave: { ...transitions.leave, cursor: 'default', pointerEvents: 'none' },
   })
 
   return (
