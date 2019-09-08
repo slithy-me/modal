@@ -68,7 +68,7 @@ const Modal = ({ children, className, ...props }) => {
   }, [])
 
   useEffect(() => {
-    if (props.enqueuedToClose.find(id => id === props.id)) {
+    if (props.enqueuedToClose) {
       handleClose()
     }
   }, [props.enqueuedToClose])
@@ -176,7 +176,7 @@ const ModalProvider = ({ children, solo = false }) => {
       {children}
       {transitions.map(({ item, key, props }, index) => {
         const modal = React.cloneElement(item[1], {
-          enqueuedToClose,
+          enqueuedToClose: enqueuedToClose.find(id => id === item[0]),
           id: item[0],
         })
         return (
