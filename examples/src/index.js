@@ -5,8 +5,9 @@ import React, { useContext, useState } from 'react'
 import { render } from 'react-dom'
 import { Modal, ModalContext, ModalProvider } from '../../src'
 
-import StackedModals from './StackedModals'
+import LongModal from './LongModal'
 import OreoModal from './OreoModal'
+import StackedModals from './StackedModals'
 
 const OreoModalExample = (props) => (
   <OreoModal
@@ -102,11 +103,16 @@ const Examples = () => {
     <EverythingModal />
   )
 
+  const openLongModal = () => openModal(
+    <LongModal />
+  )
+
   return (
     <div className="examples">
       <h2>Examples</h2>
       <button onClick={openSimpleModal} type="button">Simple Modal</button>
       <button onClick={openEverythingModal} type="button">Everything Modal</button>
+      <button onClick={openLongModal} type="button">Long Modal</button>
 
       <h2>Customization Demos</h2>
       <button onClick={openOreoModal} type="button">Oreo Modal</button>
