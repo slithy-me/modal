@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ModalContext } from '.'
 import Portal from '@slithy/portal'
 import { useTransition, animated } from 'react-spring'
@@ -10,6 +10,15 @@ export const ModalProvider = ({ children, solo = false, modalTransitions = {
 } }) => {
   const [modals, setModals] = useState([])
   const [enqueuedToClose, setEnqueuedToClose] = useState([])
+
+  useEffect(() => {
+    if (modals.length > 0) {
+      const originalOverflow = window.getComputedStyle(document.body).overflow
+      document.body.style.overflow = 'hidden'
+      return () => document.body.style.overflow = originalOverflow
+    }
+  }, [modals.length > 0])
+
   const closeModal = (id) => {
     const index = modals.findIndex(modal => modal[0] === id)
     if (index > -1) {

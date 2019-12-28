@@ -47,14 +47,6 @@ export const Modal = ({ children, className, ...props }) => {
   }
 
   useEffect(() => {
-    if (children) {
-      const originalOverflow = window.getComputedStyle(document.body).overflow
-      document.body.style.overflow = 'hidden'
-      return () => document.body.style.overflow = originalOverflow
-    }
-  }, [children])
-
-  useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
         e.preventDefault()
@@ -85,7 +77,7 @@ export const Modal = ({ children, className, ...props }) => {
   return (
     <div
       className={
-        ['component-modal', className].filter(el => el != null).join(' ')
+        ['slithy-modal', className].filter(el => el != null).join(' ')
       }
       ref={thisModal}
     >
