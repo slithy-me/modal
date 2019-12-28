@@ -22,7 +22,6 @@ const ParentModal = props => {
         'submit',
       ]}
       className="parent-modal"
-      closeButtonOutside
       onCancelLabel="Close"
       onSubmit={onSubmit}
       onSubmitLabel="Next Modal"

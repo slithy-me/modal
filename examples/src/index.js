@@ -1,9 +1,9 @@
 import 'normalize.css'
 import './style.scss'
 
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { render } from 'react-dom'
-import { Modal, ModalContext, ModalProvider } from '../../src'
+import { Modal, ModalProvider, useModal } from '../../src'
 
 import LongModal from './LongModal'
 import OreoModal from './OreoModal'
@@ -33,7 +33,7 @@ const SimpleModal = (props) => (
 )
 
 const EverythingModal = (props) => {
-  const { openModal, closeModal, closeAllModals } = useContext(ModalContext)
+  const { openModal, closeModal, closeAllModals } = useModal()
 
   const afterOpen = () => console.log(`${props.id} : fired afterOpen`)
   const beforeClose = () => console.log(`${props.id} : fired beforeClose`)
@@ -89,7 +89,7 @@ const EverythingModal = (props) => {
 }
 
 const Examples = () => {
-  const { openModal } = useContext(ModalContext)
+  const { openModal } = useModal()
 
   const openOreoModal = () => openModal(
     <OreoModalExample />

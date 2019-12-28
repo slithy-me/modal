@@ -31,13 +31,13 @@ const App = () => (
 
 ## Basic Usage
 
-Import the `Modal` and `ModalContext` components.
+Import the `Modal` and `useModal` components.
 
 ```javascript
-import { Modal, ModalContext } from '@slithy/modal'
+import { Modal, useModal } from '@slithy/modal'
 ```
 
-Create a component containing your modal definition. Be sure to spread props into the `Modal` component, as below. 
+Create a component containing your modal definition. Be sure to spread props into the `Modal` component, as below.
 
 ```javascript
 const SimpleModal = (props) => {
@@ -49,13 +49,13 @@ const SimpleModal = (props) => {
 }
 ```
 
-In your view, use `ModalContext`, then create an event handler to use `openModal`.
+In your view, use `useModal`, then create an event handler to use `openModal`.
 
 ```javascript
-import React, { useContext } from 'react'
+import React from 'react'
 
 const ExampleView = () => {
-  const { openModal } = useContext(ModalContext)
+  const { openModal } = useModal()
   const handleOpeningModal = () => openModal(<SimpleModal />)
   return (
     <div>
@@ -75,7 +75,7 @@ const ExampleView = () => {
 
 ## API : ModalProvider
 
-A provider component for ModalContext, it should wrap your App, or the component tree in which you will use modals.
+A provider component for the modal's context, it should wrap your App, or the component tree in which you will use modals.
 
 ### solo
 _boolean_, false
@@ -87,7 +87,7 @@ An optional prop. If true, allows only one modal to be open. If a new modal is o
 ```
 
 ### transitions
-_object_  
+_object_
 An optional prop, allows you to redefine the react-spring transitions, using _from_, _enter_ and _leave_.
 
 Default:
@@ -102,12 +102,12 @@ Default:
 
 ***
 
-## API : ModalContext
+## API : useModal
 
-Used with React's `useContext`.
+Used via the `useModal` hook.
 
 ```javascript
-const { openModal, closeModal, closeAllModals } = useContext(ModalContext)
+const { openModal, closeModal, closeAllModals } = useModal()
 ```
 
 ### openModal
@@ -122,11 +122,11 @@ const handleOpeningModal = () => openModal(<SimpleModal />)
 Optionally, you may provide a unique `id` as a separate argument. If omitted, the modal context will assign an id.
 
 ### closeModal
-_method_  
+_method_
 An optional method, can be used to close a modal. Accepts an `id` argument.
 
 ### closeAllModals
-_method_  
+_method_
 And optional method, can be used to close all modals.
 
 ***
@@ -159,47 +159,47 @@ If present, will create a modal footer containing the defined UI elements, left-
 ```
 
 ### backgroundStyle
-_object_  
+_object_
 A style object, applied to the `.modal-background` element, the semi-opaque overlay.
 
 ### cardStyle
-_object_  
+_object_
 A style object, applied to the `.modal-card` element.
 
 ### className
-_string_  
+_string_
 Apply a custom className to your modal.
 
 ### closeButtonOutside
-_boolean_  
+_boolean_
 By default, the close button appears in the top-right corner of the modal card. If present, this prop moves the close button to the top-right corner of the viewport.
 
 ### closeOnOutsideClick
-_boolean_  
+_boolean_
 If present, clicking the background overlay will close the modal.
 
 ### onCancel
-_func_  
+_func_
 A callback function, executed when the Cancel button is clicked. See the `actions` prop for enabling the button.
 
 After executing, the modal will close.
 
 ### onCancelLabel
-_string_  
+_string_
 The label for the Cancel button, "Cancel" by default. See the `actions` prop for enabling the button.
 
 ### onSubmit
-_func_  
+_func_
 A callback function, executed when the Submit button is clicked. See the `actions` prop for enabling the button.
 
 After executing, the modal will close. To prevent closing, `return false`.
 
 ### onSubmitLabel
-_string_  
+_string_
 The label for the Submit button, "Submit" by default. See the `actions` prop for enabling the button.
 
 ### title
-_string_  
+_string_
 Text to display as title in the modal header.
 
 ***
@@ -207,11 +207,11 @@ Text to display as title in the modal header.
 Additionally, there are two read-only props passed into each modal by the context. These are as follows:
 
 ### enqueuedToClose
-_boolean_  
+_boolean_
 Emitted as `true` to the modal when using `closeAllModals` or `closeModal` with the modal's `id`. When true, the modal will close, firing the `beforeClose` and `afterClose` event callbacks, described below.
 
 ### id
-_string_  
+_string_
 A unique id, assigned to the modal by the context.
 
 ***
@@ -255,7 +255,7 @@ This modal uses every prop, and it opens and closes other modals.
 
 ```javascript
 const EverythingModal = (props) => {
-  const { openModal, closeModal, closeAllModals } = useContext(ModalContext)
+  const { openModal, closeModal, closeAllModals } = useModal()
 
   const afterOpen = () => console.log(`${props.id} : fired afterOpen`)
   const beforeClose = () => console.log(`${props.id} : fired beforeClose`)
@@ -321,20 +321,20 @@ By wrapping the `Modal` in a custom component, and passing through props, it's e
     .modal-card {
       .modal-header {
         background-color: #565656;
-        color: #fff;	
+        color: #fff;
       }
 
       .modal-main {
         margin: 12px 0;
       }
-      
+
       .modal-footer {
         background-color: #565656;
         margin-bottom: 0;
-  
+
         .modal-button--cancel {
           color: #fff;
-        }	
+        }
       }
 
       .modal-button--close {
