@@ -3,11 +3,15 @@ import { ModalContext } from '.'
 import Portal from '@slithy/portal'
 import { useTransition, animated } from 'react-spring'
 
-export const ModalProvider = ({ children, solo = false, modalTransitions = {
-  from: { opacity: 0 },
-  enter: { opacity: 1 },
-  leave: { opacity: 0 },
-} }) => {
+export const ModalProvider = ({
+  children,
+  solo = false,
+  modalTransitions = {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  }
+}) => {
   const [modals, setModals] = useState([])
   const [enqueuedToClose, setEnqueuedToClose] = useState([])
 
@@ -19,7 +23,7 @@ export const ModalProvider = ({ children, solo = false, modalTransitions = {
     }
   }, [modals.length > 0])
 
-  const closeModal = (id) => {
+  const closeModal = id => {
     if (id) {
       const index = modals.findIndex(modal => modal[0] === id)
       if (index > -1) {
@@ -39,7 +43,7 @@ export const ModalProvider = ({ children, solo = false, modalTransitions = {
     setModals([...modals, [id || createRandomId(), nextModal]])
   }
   const transitions = useTransition(modals, modal => modal[0], {
-    from:  modalTransitions.from,
+    from: modalTransitions.from,
     enter: modalTransitions.enter,
     leave: { ...modalTransitions.leave, cursor: 'default', pointerEvents: 'none' },
   })
@@ -47,7 +51,7 @@ export const ModalProvider = ({ children, solo = false, modalTransitions = {
   return (
     <ModalContext.Provider value={{ openModal, closeModal, closeAllModals }}>
       {children}
-      {transitions.map(({ item, key, props }, index) => {
+      {transitions.map(({ item, key, props }) => {
         const modal = React.cloneElement(item[1], {
           enqueuedToClose: enqueuedToClose.find(id => id === item[0]),
           id: item[0],
