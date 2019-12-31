@@ -235,6 +235,12 @@ On cancel or submit, fires after the closeModal method.
 
 ***
 
+## Keyboard Handlers
+
+When modals are open, pressing the `Esc` key will close the active modal. This is the same as pressing the X button to close the modal, and will trigger the `beforeClose` and `afterClose` methods.
+
+***
+
 ## Examples
 
 ### the Simplest Modal

@@ -1,48 +1,36 @@
 import React, { useEffect, useRef } from 'react'
+import { CloseButton } from './components/CloseButton'
+import { ModalFooter } from './components/ModalFooter'
+import { ModalHeader } from './components/ModalHeader'
 import { useModal } from '.'
 import './style.scss'
 
-const CloseButton = ({ onClick }) => (
-  <button className="modal-button--close" onClick={onClick} type="button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" fill="currentColor" /></svg>
-  </button>
-)
-
-export const Modal = ({ children, className, ...props }) => {
-  const { closeModal } = useModal()
+export const Modal = ({
+	actions,
+	afterClose,
+	afterOpen,
+	backgroundStyle,
+	beforeClose,
+	cardStyle,
+	children,
+	className,
+	closeButtonOutside,
+	closeOnOutsideClick,
+	enqueuedToClose,
+	id,
+	title,
+	...props
+}) => {
+	const { closeModal } = useModal()
   const thisModal = useRef()
 
   const handleClose = () => {
-    if (props.beforeClose) {
-      props.beforeClose()
+    if (beforeClose) {
+      beforeClose()
     }
-    closeModal(props.id)
-    if (props.afterClose) {
-      props.afterClose()
-    }
-  }
-
-  const handleCancel = () => {
-    if (props.onCancel) {
-      props.onCancel()
-    }
-    handleClose()
-  }
-
-  const handleSubmit = async () => {
-    let result = true
-    try {
-      if (props.onSubmit) {
-        result = await props.onSubmit()
-      }
-    }
-    catch (error) {
-      console.error(error)
-    }
-    finally {
-      if (result !== false) {
-        handleClose()
-      }
+    closeModal(id)
+    if (afterClose) {
+      afterClose()
     }
   }
 
@@ -50,7 +38,7 @@ export const Modal = ({ children, className, ...props }) => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
         e.preventDefault()
-        handleCancel()
+        handleClose()
       }
     }
 
@@ -59,82 +47,59 @@ export const Modal = ({ children, className, ...props }) => {
   }, [])
 
   useEffect(() => {
-    if (props.afterOpen) {
-      props.afterOpen()
+    if (afterOpen) {
+      afterOpen()
     }
   }, [])
 
   useEffect(() => {
-    if (props.enqueuedToClose) {
+    if (enqueuedToClose) {
       handleClose()
     }
-  }, [props.enqueuedToClose])
+  }, [enqueuedToClose])
 
   if (!children) {
     return null
   }
 
-  return (
+	return (
     <div
       className={
         ['slithy-modal', className].filter(el => el != null).join(' ')
       }
       ref={thisModal}
     >
-      <div className="modal-background" style={props.backgroundStyle}>
+      <div className="modal-background" style={backgroundStyle}>
         <div
           className={
-            ['modal-exit', props.closeOnOutsideClick ? 'closeOnOutsideClick' : undefined].filter(el => el != null).join(' ')
+            ['modal-exit', closeOnOutsideClick ? 'closeOnOutsideClick' : undefined].filter(el => el != null).join(' ')
           }
-          onClick={props.closeOnOutsideClick ? handleClose : undefined}
+          onClick={closeOnOutsideClick ? handleClose : undefined}
         />
-        <div className="modal-card" style={props.cardStyle}>
-          {props.title && (
-            <div className="modal-header">
-              {props.title}
-            </div>
+        <div className="modal-card" style={cardStyle}>
+					<div className="modal-card-interior">
+          {title && (
+						<ModalHeader title={title} />
           )}
 
-          <div className="modal-main">
-            {children}
-          </div>
+					{children}
 
-          {props.actions && (
-            <div className="modal-footer">
-              {props.actions.map((action) => {
-                if (action === 'cancel') {
-                  return (
-                    <button
-                      className="modal-button--cancel"
-                      key="modal-button--cancel"
-                      onClick={handleCancel}
-                      type="button"
-                    >
-                      {props.onCancelLabel || 'Cancel'}
-                    </button>
-                  )
-                } else
-                if (action === 'submit') {
-                  return (
-                    <button
-                      className="modal-button--submit"
-                      key="modal-button--submit"
-                      onClick={handleSubmit}
-                      type="button"
-                    >
-                      {props.onSubmitLabel || 'Submit'}
-                    </button>
-                  )
-                } else {
-                  return action
-                }
-              })}
-            </div>
+          {actions && (
+						<ModalFooter
+							actions={actions}
+							handleClose={handleClose}
+							{...props}
+						/>
           )}
 
-          {!props.closeButtonOutside && <CloseButton onClick={handleClose} />}
+					</div>
+          {!closeButtonOutside && (
+						<CloseButton onClick={handleClose} />
+					)}
         </div>
-        {props.closeButtonOutside && <CloseButton onClick={handleClose} />}
+        {closeButtonOutside && (
+					<CloseButton onClick={handleClose} />
+				)}
       </div>
     </div>
   )

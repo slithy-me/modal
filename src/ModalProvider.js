@@ -20,9 +20,13 @@ export const ModalProvider = ({ children, solo = false, modalTransitions = {
   }, [modals.length > 0])
 
   const closeModal = (id) => {
-    const index = modals.findIndex(modal => modal[0] === id)
-    if (index > -1) {
-      modals.splice(index, 1)
+    if (id) {
+      const index = modals.findIndex(modal => modal[0] === id)
+      if (index > -1) {
+        modals.splice(index, 1)
+      }
+    } else {
+      modals.splice(-1)
     }
     return setModals([...modals])
   }

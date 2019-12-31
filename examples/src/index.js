@@ -32,6 +32,54 @@ const SimpleModal = (props) => (
   </Modal>
 )
 
+const CustomFooterModal = (props) => {
+  const { closeModal } = useModal()
+  const handleClose = () => closeModal()
+  const failSubmit = () => {
+    try {
+      adddlert('This line intentionally creates an error to prevent the modal closing, basically aborting the submission.')
+    }
+    catch(err) {
+      console.log('Submittions failed.')
+      return false
+    }
+  }
+  const passSubmit = () => {
+    try {
+      console.log('Successful modal submission')
+    }
+    catch(err) {
+      return false
+    }
+  }
+  const handleSubmit = async (onSubmit) => {
+    let result = true
+    try {
+      if (onSubmit) {
+        result = await onSubmit()
+      }
+    }
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      if (result !== false) {
+        handleClose()
+      }
+    }
+  }
+  return (
+    <Modal>
+      <p>This modal does not use the <cite>actions</cite> prop, and instead implements an inline footer.</p>
+      <div className="modal-footer">
+        <button onClick={handleClose}>Close</button>
+        <button onClick={() => handleSubmit(failSubmit)}>Fail Submit</button>
+        <button onClick={() => handleSubmit(passSubmit)}>Pass Submit</button>
+      </div>
+    </Modal>
+  )
+}
+
 const EverythingModal = (props) => {
   const { openModal, closeModal, closeAllModals } = useModal()
 
@@ -107,12 +155,17 @@ const Examples = () => {
     <LongModal />
   )
 
+  const openCustomFooterModal = () => openModal(
+    <CustomFooterModal />
+  )
+
   return (
     <div className="examples">
       <h2>Examples</h2>
       <button onClick={openSimpleModal} type="button">Simple Modal</button>
       <button onClick={openEverythingModal} type="button">Everything Modal</button>
       <button onClick={openLongModal} type="button">Long Modal</button>
+      <button onClick={openCustomFooterModal} type="button">Custom Footer Modal</button>
 
       <h2>Customization Demos</h2>
       <button onClick={openOreoModal} type="button">Oreo Modal</button>
