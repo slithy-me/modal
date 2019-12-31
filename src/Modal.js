@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { CloseButton } from './components/CloseButton'
 import { ModalFooter } from './components/ModalFooter'
 import { ModalHeader } from './components/ModalHeader'
@@ -22,7 +22,6 @@ export const Modal = ({
 	...props
 }) => {
 	const { closeModal } = useModal()
-  const thisModal = useRef()
 
   const handleClose = () => {
     if (beforeClose) {
@@ -67,7 +66,6 @@ export const Modal = ({
       className={
         ['slithy-modal', className].filter(el => el != null).join(' ')
       }
-      ref={thisModal}
     >
       <div className="modal-background" style={backgroundStyle}>
         <div
